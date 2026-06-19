@@ -104,6 +104,14 @@ Responsibilities:
 
 It is the main input for future Playwright generation and self-healing workflows.
 
+### Playwright Generator
+
+Future Lane B generator output must use:
+
+- JavaScript.
+- Page Object Model.
+- `test.step(...)` in the spec for readable execution narrative.
+
 ### Replay Engine
 
 Runs actions in the active/demo browser tab for single replay workflows:

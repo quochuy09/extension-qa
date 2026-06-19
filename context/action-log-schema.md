@@ -70,6 +70,14 @@ Recommended Playwright mapping:
 | `datasets` / `bindings` | data-driven test loop |
 | `runPolicy` | generated test execution policy |
 
+Generation requirements:
+
+- Output language: JavaScript.
+- Required pattern: POM - Page Object Model.
+- Specs must use `test.step(...)` for meaningful groups/action sequences.
+- Locator logic should live in page object classes/modules where practical.
+- Specs should call page object methods so the generated test remains readable.
+
 ## Current Schema
 
 ```json

@@ -455,14 +455,16 @@ Muc tieu Lane B:
 
 #### B3 - Playwright Code Generation
 
-- Muc tieu: sinh Playwright spec doc duoc va maintain duoc.
+- Muc tieu: sinh Playwright JavaScript spec + Page Object Model doc duoc va maintain duoc.
 - Input: automation contract + element mappings.
-- Output: Playwright spec file.
+- Output: Playwright JavaScript spec file + POM files.
 - Trang thai: da co mot phan, can align lai voi Lane A schema.
 - Can lam:
   - dung Lane A action log schema
+  - output ngon ngu: JavaScript
+  - model bat buoc: POM - Page Object Model
   - support control types: text, textarea, select, radio, checkbox
-  - groups -> `test.step(...)`
+  - bat buoc dung `test.step(...)`
   - selector priority: testId -> roleText -> id -> css -> xpath
   - CSV/data-driven loop
   - suite/merged flow
@@ -576,7 +578,14 @@ Status: Partially implemented, future alignment needed
 
 Goal:
 
-- Generate readable Playwright tests from structured flows/action logs.
+- Generate readable Playwright JavaScript tests from structured flows/action logs using Page Object Model.
+
+Required output style:
+
+- Language: JavaScript.
+- Pattern: POM - Page Object Model.
+- Test readability: every meaningful group/action sequence must be wrapped with `test.step(...)`.
+- Generated specs should call page object methods instead of placing all locator logic directly in the spec.
 
 Already exists:
 
