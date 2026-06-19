@@ -406,6 +406,34 @@ Acceptance criteria:
 - Tester can see what ran, what passed, and what failed.
 - Failed row/step is easy to identify.
 
+## Lane B Remaining Work Overview
+
+Lane B goal:
+
+- Turn exported Lane A action logs and/or manual testcase text into maintainable Playwright automation with runtime validation and selector self-healing.
+
+| Phase | Main question | Input | Output | Current status | Remaining work |
+| --- | --- | --- | --- | --- | --- |
+| B0 - Contract Adapter | Can the system safely read Lane A JSON as the stable automation contract? | Exported action-log JSON, merged suite JSON | Normalized automation contract object | Not started | Build adapter, schema validation, selector priority resolver, control-type mapper, error messages for invalid logs |
+| B1 - Testcase Input Mode | Can a user provide testcase text instead of recording? | Pasted/uploaded testcase text, optional action log reference | Structured testcase/flow JSON | Future | Deterministic parser, ambiguity detection, optional AI fallback, testcase-to-action intent format |
+| B2 - UI Exploration and Mapping | Can structured intent be mapped to real UI elements? | Structured testcase, action-log selector cache, current page DOM | Validated element mapping | Future | DOM snapshot filter, accessibility snapshot, selector validation, mapping cache, unresolved-step report |
+| B3 - Playwright Code Generation | Can the system generate readable Playwright code? | Automation contract + mappings | Playwright spec file | Partially implemented | Align generator with Lane A schema, support control types, groups as `test.step`, selector priority, CSV/data loops, suite/merged flow |
+| B4 - Runtime Validation | Can generated tests prove they work? | Generated Playwright spec | Pass/fail runtime result and artifacts | Partially implemented | Failure classification, attach trace/screenshot/report, feed runtime errors back to generator/reviewer |
+| B5 - Self-Healing | Can selector failures be repaired safely? | Failed Playwright run, old selector, DOM/accessibility snapshot | Patched locator or selector cache + healing log | Future | Detect selector-only failures, propose selector, validate exactly one visible/enabled element, patch locator only, rerun test, log diff |
+| F1 - Dashboard Integration | Can the full story be shown clearly? | Recordings, generated tests, runtime results, healing events | Demo dashboard | Future | Test history, generation history, self-healing event table, selector diff, links to artifacts |
+
+Recommended Lane B implementation order:
+
+1. B0 Action Log Contract Adapter.
+2. B3 Playwright generation from exported action logs.
+3. B4 Runtime validation loop.
+4. B5 Self-healing for selector failures.
+5. B1/B2 testcase text and UI exploration after the action-log path is stable.
+
+Key design rule:
+
+- Start from exported action logs first. Do not make Lane B depend on Chrome popup state or extension storage.
+
 ## Phase B1: Testcase Input Mode
 
 Status: Future
