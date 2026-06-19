@@ -406,33 +406,120 @@ Acceptance criteria:
 - Tester can see what ran, what passed, and what failed.
 - Failed row/step is easy to identify.
 
-## Lane B Remaining Work Overview
+## Lane B - Viec Con Lai
 
-Lane B goal:
+Muc tieu Lane B:
 
-- Turn exported Lane A action logs and/or manual testcase text into maintainable Playwright automation with runtime validation and selector self-healing.
+- Bien action log JSON tu Lane A thanh Playwright automation co the chay that, validate runtime, va self-heal khi selector bi doi.
+- Uu tien duong di tu action log da export truoc. Khong phu thuoc popup state hay `chrome.storage.local`.
 
-| Phase | Main question | Input | Output | Current status | Remaining work |
-| --- | --- | --- | --- | --- | --- |
-| B0 - Contract Adapter | Can the system safely read Lane A JSON as the stable automation contract? | Exported action-log JSON, merged suite JSON | Normalized automation contract object | Not started | Build adapter, schema validation, selector priority resolver, control-type mapper, error messages for invalid logs |
-| B1 - Testcase Input Mode | Can a user provide testcase text instead of recording? | Pasted/uploaded testcase text, optional action log reference | Structured testcase/flow JSON | Future | Deterministic parser, ambiguity detection, optional AI fallback, testcase-to-action intent format |
-| B2 - UI Exploration and Mapping | Can structured intent be mapped to real UI elements? | Structured testcase, action-log selector cache, current page DOM | Validated element mapping | Future | DOM snapshot filter, accessibility snapshot, selector validation, mapping cache, unresolved-step report |
-| B3 - Playwright Code Generation | Can the system generate readable Playwright code? | Automation contract + mappings | Playwright spec file | Partially implemented | Align generator with Lane A schema, support control types, groups as `test.step`, selector priority, CSV/data loops, suite/merged flow |
-| B4 - Runtime Validation | Can generated tests prove they work? | Generated Playwright spec | Pass/fail runtime result and artifacts | Partially implemented | Failure classification, attach trace/screenshot/report, feed runtime errors back to generator/reviewer |
-| B5 - Self-Healing | Can selector failures be repaired safely? | Failed Playwright run, old selector, DOM/accessibility snapshot | Patched locator or selector cache + healing log | Future | Detect selector-only failures, propose selector, validate exactly one visible/enabled element, patch locator only, rerun test, log diff |
-| F1 - Dashboard Integration | Can the full story be shown clearly? | Recordings, generated tests, runtime results, healing events | Demo dashboard | Future | Test history, generation history, self-healing event table, selector diff, links to artifacts |
+### Tong quan theo phase
 
-Recommended Lane B implementation order:
+#### B0 - Action Log Contract Adapter
 
-1. B0 Action Log Contract Adapter.
-2. B3 Playwright generation from exported action logs.
-3. B4 Runtime validation loop.
-4. B5 Self-healing for selector failures.
-5. B1/B2 testcase text and UI exploration after the action-log path is stable.
+- Muc tieu: doc action log JSON cua Lane A theo mot contract on dinh.
+- Input: exported action-log JSON, merged suite JSON.
+- Output: normalized automation contract object.
+- Trang thai: chua lam.
+- Can lam:
+  - schema validation
+  - adapter doc action log
+  - selector priority resolver
+  - control-type mapper
+  - error message ro rang khi JSON sai format
 
-Key design rule:
+#### B1 - Testcase Input Mode
 
-- Start from exported action logs first. Do not make Lane B depend on Chrome popup state or extension storage.
+- Muc tieu: user co the dua testcase text thay vi record bang extension.
+- Input: testcase text paste/upload, optional action log tham chieu.
+- Output: structured testcase/flow JSON.
+- Trang thai: future.
+- Can lam:
+  - deterministic parser
+  - detect cau mo ho
+  - optional AI fallback
+  - format intent trung gian de map sang UI/action
+
+#### B2 - UI Exploration And Mapping
+
+- Muc tieu: map structured intent vao element that tren UI.
+- Input: structured testcase, selector cache tu action log, DOM hien tai.
+- Output: validated element mapping.
+- Trang thai: future.
+- Can lam:
+  - DOM snapshot filter
+  - accessibility snapshot
+  - selector validation
+  - mapping cache
+  - report cac step khong map duoc
+
+#### B3 - Playwright Code Generation
+
+- Muc tieu: sinh Playwright spec doc duoc va maintain duoc.
+- Input: automation contract + element mappings.
+- Output: Playwright spec file.
+- Trang thai: da co mot phan, can align lai voi Lane A schema.
+- Can lam:
+  - dung Lane A action log schema
+  - support control types: text, textarea, select, radio, checkbox
+  - groups -> `test.step(...)`
+  - selector priority: testId -> roleText -> id -> css -> xpath
+  - CSV/data-driven loop
+  - suite/merged flow
+
+#### B4 - Runtime Validation
+
+- Muc tieu: chay Playwright test that va lay ket qua runtime.
+- Input: generated Playwright spec.
+- Output: pass/fail result + artifacts.
+- Trang thai: da co mot phan.
+- Can lam:
+  - classify failure
+  - attach trace/screenshot/report
+  - dua runtime error quay lai generator/reviewer
+  - luu validation history
+
+#### B5 - Self-Healing
+
+- Muc tieu: tu sua selector fail mot cach an toan.
+- Input: failed Playwright run, selector cu, DOM/accessibility snapshot.
+- Output: patched locator hoac selector cache + healing log.
+- Trang thai: future.
+- Can lam:
+  - chi detect selector-not-found/timeout
+  - khong heal assertion/business failure
+  - propose selector moi
+  - validate selector moi dung 1 element, visible, enabled
+  - patch locator only
+  - rerun test
+  - log diff selector cu -> moi
+
+#### F1 - Dashboard Integration
+
+- Muc tieu: show full demo story ro rang cho khach hang.
+- Input: recordings, generated tests, runtime results, healing events.
+- Output: dashboard demo.
+- Trang thai: future.
+- Can lam:
+  - test history
+  - generation history
+  - self-healing event table
+  - selector diff
+  - link toi artifacts
+
+### Thu tu nen lam
+
+1. B0 - Action Log Contract Adapter.
+2. B3 - Playwright generation tu exported action logs.
+3. B4 - Runtime validation loop.
+4. B5 - Self-healing cho selector failure.
+5. B1/B2 - Testcase text va UI exploration sau khi action-log path da on dinh.
+
+Nguyen tac chinh:
+
+- Bat dau tu exported action logs.
+- Khong de Lane B doc truc tiep popup state hay extension storage.
+- Neu doi schema breaking thi phai tang `metadata.schemaVersion`.
 
 ## Phase B1: Testcase Input Mode
 
