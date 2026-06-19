@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Factory Recorder",
+  "version": "0.1.0",
+  "description": "Records manual QA actions for the Self-Healing Test Automation Factory demo.",
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": ["http://localhost:4173/*", "http://127.0.0.1:4173/*"],
+  "action": {
+    "default_title": "Factory Recorder",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://localhost:4173/*", "http://127.0.0.1:4173/*"],
+      "js": ["shared/selector-engine.js", "shared/action-normalizer.js", "content/replay-engine.js", "content/recorder.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Factory Demo Shop</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Self-Healing Automation Factory</p>
+        <h1>Factory Demo Shop</h1>
+      </div>
+      <nav aria-label="Main navigation">
+        <button id="nav-products" data-testid="nav-products" type="button">Products</button>
+        <button id="nav-cart" data-testid="nav-cart" type="button">
+          Cart <span id="cart-count" data-testid="cart-count">0</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="login-view" class="view active" data-route="/login" aria-labelledby="login-title">
+        <div class="panel">
+          <h2 id="login-title">Login</h2>
+          <form id="login-form" data-testid="login-form">
+            <label for="username">Username</label>
+            <input id="username" data-testid="username-input" name="username" autocomplete="username" value="standard_user" />
+
+            <label for="password">Password</label>
+            <input id="password" data-testid="password-input" name="password" type="password" autocomplete="current-password" value="secret_sauce" />
+
+            <button id="login-button" data-testid="login-button" type="submit">Login</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="products-view" class="view" data-route="/products" aria-labelledby="products-title">
+        <h2 id="products-title">Products</h2>
+        <div class="product-grid">
+          <article class="product" data-testid="product-card" data-product-id="bento-laptop-stand">
+            <h3>Bento Laptop Stand</h3>
+            <p>Compact aluminum stand for small desks.</p>
+            <strong>$48.00</strong>
+            <button id="add-bento-stand" data-testid="add-to-cart-bento-stand" type="button">Add to cart</button>
+          </article>
+          <article class="product" data-testid="product-card" data-product-id="qa-notebook">
+            <h3>QA Field Notebook</h3>
+            <p>Reusable checklist notebook for exploratory sessions.</p>
+            <strong>$18.00</strong>
+            <button id="add-qa-notebook" data-testid="add-to-cart-qa-notebook" type="button">Add to cart</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="cart-view" class="view" data-route="/cart" aria-labelledby="cart-title">
+        <h2 id="cart-title">Cart</h2>
+        <ul id="cart-items" data-testid="cart-items"></ul>
+        <button id="checkout-button" data-testid="checkout-button" type="button">Checkout</button>
+      </section>
+
+      <section id="checkout-view" class="view" data-route="/checkout" aria-labelledby="checkout-title">
+        <div class="panel">
+          <h2 id="checkout-title">Checkout</h2>
+          <form id="checkout-form" data-testid="checkout-form">
+            <label for="full-name">Full name</label>
+            <input id="full-name" data-testid="full-name-input" name="fullName" autocomplete="name" />
+
+            <label for="postal-code">Postal code</label>
+            <input id="postal-code" data-testid="postal-code-input" name="postalCode" autocomplete="postal-code" />
+
+            <label for="shipping-method">Shipping method</label>
+            <select id="shipping-method" data-testid="shipping-method-select" name="shippingMethod">
+              <option value="standard">Standard delivery</option>
+              <option value="express">Express delivery</option>
+              <option value="pickup">Store pickup</option>
+            </select>
+
+            <fieldset>
+              <legend>Payment method</legend>
+              <label class="choice">
+                <input id="payment-card" data-testid="payment-card-radio" name="paymentMethod" type="radio" value="card" checked />
+                Credit card
+              </label>
+              <label class="choice">
+                <input id="payment-bank" data-testid="payment-bank-radio" name="paymentMethod" type="radio" value="bank" />
+                Bank transfer
+              </label>
+            </fieldset>
+
+            <label class="choice">
+              <input id="gift-wrap" data-testid="gift-wrap-checkbox" name="giftWrap" type="checkbox" value="yes" />
+              Gift wrap this order
+            </label>
+
+            <label for="delivery-note">Delivery note</label>
+            <textarea id="delivery-note" data-testid="delivery-note-textarea" name="deliveryNote" rows="3"></textarea>
+
+            <button id="place-order-button" data-testid="place-order-button" type="submit">Place order</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="confirmation-view" class="view" data-route="/confirmation" aria-labelledby="confirmation-title">
+        <div class="panel success">
+          <h2 id="confirmation-title">Order confirmed</h2>
+          <p data-testid="confirmation-message">Thank you. Your order is ready for dispatch.</p>
+          <button id="back-to-products" data-testid="back-to-products" type="button">Back to products</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/shop.js"></script>
+  </body>
+</html>

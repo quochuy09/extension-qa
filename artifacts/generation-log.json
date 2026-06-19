@@ -1,0 +1,22 @@
+[
+  {
+    "runtimeAttempt": 1,
+    "reviewRound": 1,
+    "generator": "Agent Generator",
+    "generatorMode": "deterministic-fallback",
+    "reviewer": "Agent Reviewer",
+    "reviewerMode": "deterministic-fallback",
+    "approved": true,
+    "findings": [],
+    "targetPath": "tests/generated-checkout.spec.ts"
+  },
+  {
+    "runtimeValidation": {
+      "attempt": 1,
+      "command": "C:\\Program Files\\nodejs\\node.exe node_modules/playwright/cli.js test",
+      "passed": true,
+      "exitCode": 0,
+      "summary": "Running 1 test using 1 worker | ok 1 tests\\generated-checkout.spec.ts:4:3 > Generated checkout flow > customer can login, add an item, and place an order (496ms) | 1 passed (1.4s)"
+    }
+  }
+]

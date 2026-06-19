@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "schemaVersion": 1,
+    "generatedAt": "2026-06-18T09:07:28.234Z",
+    "source": "playwright-recorder",
+    "actionCount": 9
+  },
+  "groups": [
+    {
+      "name": "Login",
+      "startedAtActionId": "act-001",
+      "actionIds": [
+        "act-001",
+        "act-002",
+        "act-003"
+      ]
+    },
+    {
+      "name": "Products",
+      "startedAtActionId": "act-004",
+      "actionIds": [
+        "act-004",
+        "act-005"
+      ]
+    },
+    {
+      "name": "Cart",
+      "startedAtActionId": "act-006",
+      "actionIds": [
+        "act-006"
+      ]
+    },
+    {
+      "name": "Checkout",
+      "startedAtActionId": "act-007",
+      "actionIds": [
+        "act-007",
+        "act-008",
+        "act-009"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "act-001",
+      "timestamp": "2026-06-18T09:07:28.019Z",
+      "type": "input",
+      "value": "standard_user",
+      "url": "http://localhost:4174/",
+      "title": "Factory Demo Shop",
+      "targetTag": "input",
+      "targetText": "Username",
+      "selectors": {
+        "id": "#username",
+        "testId": "[data-testid=\"username-input\"]",
+        "roleText": "getByRole('textbox', { name: 'Username' })",
+        "css": "#username",
+        "xpath": "//*[@data-testid=\"username-input\"]"
+      },
+      "elementSignature": "[data-testid=\"username-input\"]"
+    },
+    {
+      "id": "act-002",
+      "timestamp": "2026-06-18T09:07:28.030Z",
+      "type": "input",
+      "value": "secret_sauce",
+      "url": "http://localhost:4174/",
+      "title": "Factory Demo Shop",
+      "targetTag": "input",
+      "targetText": "Password",
+      "selectors": {
+        "id": "#password",
+        "testId": "[data-testid=\"password-input\"]",
+        "roleText": "getByRole('textbox', { name: 'Password' })",
+        "css": "#password",
+        "xpath": "//*[@data-testid=\"password-input\"]"
+      },
+      "elementSignature": "[data-testid=\"password-input\"]"
+    },
+    {
+      "id": "act-003",
+      "timestamp": "2026-06-18T09:07:28.066Z",
+      "type": "click",
+      "value": null,
+      "url": "http://localhost:4174/",
+      "title": "Factory Demo Shop",
+      "targetTag": "button",
+      "targetText": "Login",
+      "selectors": {
+        "id": "#login-button",
+        "testId": "[data-testid=\"login-button\"]",
+        "roleText": "getByRole('button', { name: 'Login' })",
+        "css": "#login-button",
+        "xpath": "//*[@data-testid=\"login-button\"]"
+      },
+      "elementSignature": "[data-testid=\"login-button\"]"
+    },
+    {
+      "id": "act-004",
+      "timestamp": "2026-06-18T09:07:28.116Z",
+      "type": "click",
+      "value": null,
+      "url": "http://localhost:4174/#/products",
+      "title": "Factory Demo Shop",
+      "targetTag": "button",
+      "targetText": "Add to cart",
+      "selectors": {
+        "id": "#add-bento-stand",
+        "testId": "[data-testid=\"add-to-cart-bento-stand\"]",
+        "roleText": "getByRole('button', { name: 'Add to cart' })",
+        "css": "#add-bento-stand",
+        "xpath": "//*[@data-testid=\"add-to-cart-bento-stand\"]"
+      },
+      "elementSignature": "[data-testid=\"add-to-cart-bento-stand\"]"
+    },
+    {
+      "id": "act-005",
+      "timestamp": "2026-06-18T09:07:28.148Z",
+      "type": "click",
+      "value": null,
+      "url": "http://localhost:4174/#/products",
+      "title": "Factory Demo Shop",
+      "targetTag": "button",
+      "targetText": "Cart 1",
+      "selectors": {
+        "id": "#nav-cart",
+        "testId": "[data-testid=\"nav-cart\"]",
+        "roleText": "getByRole('button', { name: 'Cart 1' })",
+        "css": "#nav-cart",
+        "xpath": "//*[@data-testid=\"nav-cart\"]"
+      },
+      "elementSignature": "[data-testid=\"nav-cart\"]"
+    },
+    {
+      "id": "act-006",
+      "timestamp": "2026-06-18T09:07:28.181Z",
+      "type": "click",
+      "value": null,
+      "url": "http://localhost:4174/#/cart",
+      "title": "Factory Demo Shop",
+      "targetTag": "button",
+      "targetText": "Checkout",
+      "selectors": {
+        "id": "#checkout-button",
+        "testId": "[data-testid=\"checkout-button\"]",
+        "roleText": "getByRole('button', { name: 'Checkout' })",
+        "css": "#checkout-button",
+        "xpath": "//*[@data-testid=\"checkout-button\"]"
+      },
+      "elementSignature": "[data-testid=\"checkout-button\"]"
+    },
+    {
+      "id": "act-007",
+      "timestamp": "2026-06-18T09:07:28.190Z",
+      "type": "input",
+      "value": "Taro Yamada",
+      "url": "http://localhost:4174/#/checkout",
+      "title": "Factory Demo Shop",
+      "targetTag": "input",
+      "targetText": "Full name",
+      "selectors": {
+        "id": "#full-name",
+        "testId": "[data-testid=\"full-name-input\"]",
+        "roleText": "getByRole('textbox', { name: 'Full name' })",
+        "css": "#full-name",
+        "xpath": "//*[@data-testid=\"full-name-input\"]"
+      },
+      "elementSignature": "[data-testid=\"full-name-input\"]"
+    },
+    {
+      "id": "act-008",
+      "timestamp": "2026-06-18T09:07:28.198Z",
+      "type": "input",
+      "value": "100-0001",
+      "url": "http://localhost:4174/#/checkout",
+      "title": "Factory Demo Shop",
+      "targetTag": "input",
+      "targetText": "Postal code",
+      "selectors": {
+        "id": "#postal-code",
+        "testId": "[data-testid=\"postal-code-input\"]",
+        "roleText": "getByRole('textbox', { name: 'Postal code' })",
+        "css": "#postal-code",
+        "xpath": "//*[@data-testid=\"postal-code-input\"]"
+      },
+      "elementSignature": "[data-testid=\"postal-code-input\"]"
+    },
+    {
+      "id": "act-009",
+      "timestamp": "2026-06-18T09:07:28.231Z",
+      "type": "click",
+      "value": null,
+      "url": "http://localhost:4174/#/checkout",
+      "title": "Factory Demo Shop",
+      "targetTag": "button",
+      "targetText": "Place order",
+      "selectors": {
+        "id": "#place-order-button",
+        "testId": "[data-testid=\"place-order-button\"]",
+        "roleText": "getByRole('button', { name: 'Place order' })",
+        "css": "#place-order-button",
+        "xpath": "//*[@data-testid=\"place-order-button\"]"
+      },
+      "elementSignature": "[data-testid=\"place-order-button\"]"
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Factory Recorder</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>Factory Recorder</h1>
+          <p id="status">Idle</p>
+        </div>
+        <strong id="action-count">0</strong>
+      </header>
+
+      <nav class="tabs" aria-label="Main menu">
+        <button class="tab-button active" data-tab="record" type="button">Record</button>
+        <button class="tab-button" data-tab="replay" type="button">Replay</button>
+        <button class="tab-button" data-tab="data" type="button">Data</button>
+        <button class="tab-button" data-tab="suite" type="button">Suite</button>
+        <button class="tab-button" data-tab="report" type="button">Report</button>
+      </nav>
+
+      <p id="message" class="message" role="status"></p>
+
+      <section class="tab-panel active" data-panel="record">
+        <section class="testcase" aria-label="Test case">
+          <label for="test-case-name">Test case</label>
+          <input id="test-case-name" type="text" />
+          <label for="test-case-description">Description</label>
+          <input id="test-case-description" type="text" />
+          <label for="start-url">Start URL</label>
+          <input id="start-url" type="url" />
+          <label for="import-log">Import action log</label>
+          <input id="import-log" type="file" accept=".json,application/json" />
+        </section>
+
+        <div class="panel-status" aria-label="Record status">
+          <span id="record-status-dot" class="status-dot idle" aria-hidden="true"></span>
+          <span>Record status</span>
+        </div>
+
+        <section class="toolbar" aria-label="Recorder controls">
+          <button id="start" class="primary" type="button">Start</button>
+          <button id="stop" type="button">Stop</button>
+          <button id="clear" type="button">Clear</button>
+          <button id="download" type="button">Download</button>
+          <button id="save-local" type="button" title="Save the current action log to the local demo server">Save Local</button>
+          <button id="load-local" type="button" title="Load the latest action log from the local demo server">Load Local</button>
+        </section>
+
+        <section class="steps" aria-labelledby="steps-title">
+          <h2 id="steps-title">Steps</h2>
+          <ol id="step-list"></ol>
+        </section>
+      </section>
+
+      <section class="tab-panel" data-panel="replay">
+        <section class="testcase" aria-label="Replay source">
+          <label for="replay-start-url">Start URL</label>
+          <input id="replay-start-url" type="url" />
+          <label for="replay-import-log">Action log</label>
+          <input id="replay-import-log" type="file" accept=".json,application/json" />
+          <div id="replay-action-log-name" class="file-name">No action log loaded</div>
+        </section>
+
+        <div class="panel-status" aria-label="Replay status">
+          <span id="replay-status-dot" class="status-dot idle" aria-hidden="true"></span>
+          <span>Replay status</span>
+        </div>
+
+        <section class="replay-settings" aria-label="Replay settings">
+          <label for="replay-speed">Replay speed</label>
+          <select id="replay-speed">
+            <option value="slow">Slow</option>
+            <option value="demo" selected>Demo</option>
+            <option value="normal">Normal</option>
+          </select>
+        </section>
+
+        <section class="toolbar" aria-label="Replay controls">
+          <button id="run-all" class="primary" type="button">Start</button>
+          <button id="replay-stop" type="button">Stop</button>
+          <button id="replay-clear" type="button">Clear</button>
+        </section>
+
+        <section class="groups" aria-labelledby="groups-title">
+          <h2 id="groups-title">Flow Groups</h2>
+          <div id="group-list" class="group-list"></div>
+        </section>
+      </section>
+
+      <section class="tab-panel" data-panel="data">
+        <section class="testcase" aria-label="Data loop source">
+          <label for="data-start-url">Start URL</label>
+          <input id="data-start-url" type="url" />
+          <label for="data-import-log">Action log</label>
+          <input id="data-import-log" type="file" accept=".json,application/json" />
+          <div id="data-action-log-name" class="file-name">No action log loaded</div>
+        </section>
+
+        <div class="panel-status" aria-label="Data status">
+          <span id="data-status-dot" class="status-dot idle" aria-hidden="true"></span>
+          <span>Data status</span>
+        </div>
+
+        <section class="dataset" aria-labelledby="dataset-title">
+          <h2 id="dataset-title">CSV Data Loop</h2>
+          <input id="csv-file" type="file" accept=".csv,text/csv" />
+          <div id="dataset-summary" class="dataset-summary empty">No CSV loaded</div>
+          <div id="binding-list" class="binding-list"></div>
+          <div class="data-actions">
+            <button id="run-csv" type="button">Start</button>
+            <button id="data-stop" type="button">Stop</button>
+            <button id="data-clear-log" type="button">Clear Action Log</button>
+            <button id="clear-csv" type="button">Clear CSV</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel" data-panel="suite">
+        <section class="suite" aria-labelledby="suite-title">
+          <h2 id="suite-title">Suite Builder</h2>
+          <p class="section-help">Use Suite to run multiple saved flows together. Import action-log files, then drag flows up or down to change the run order.</p>
+          <label for="suite-name">Suite name</label>
+          <input id="suite-name" type="text" />
+          <div class="panel-status" aria-label="Suite status">
+            <span id="suite-status-dot" class="status-dot idle" aria-hidden="true"></span>
+            <span>Suite status</span>
+          </div>
+          <div class="suite-actions">
+            <button id="download-current-flow" type="button">Download Current Flow</button>
+            <label class="file-button" for="import-flow">Import Flow</label>
+            <input id="import-flow" type="file" accept=".json,application/json" multiple />
+          </div>
+          <div id="suite-flow-list" class="suite-flow-list"></div>
+          <div id="suite-binding-list" class="binding-list"></div>
+          <button id="run-suite" type="button">Run Suite</button>
+          <button id="run-suite-csv" class="hidden" type="button">Run Suite CSV</button>
+        </section>
+      </section>
+
+      <section class="tab-panel" data-panel="report">
+        <section class="reports" aria-labelledby="reports-title">
+          <h2 id="reports-title">Run Report</h2>
+          <div id="report-summary" class="dataset-summary empty">No runs yet</div>
+          <div id="report-list" class="report-list"></div>
+          <button id="export-report" type="button">Export JSON</button>
+          <button id="export-report-html" type="button">Export HTML</button>
+        </section>
+      </section>
+    </main>
+
+    <script src="../shared/action-normalizer.js"></script>
+    <script src="../shared/csv-engine.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

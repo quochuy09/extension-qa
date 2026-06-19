@@ -1,0 +1,19 @@
+{
+  "name": "self-healing-test-automation-factory",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portfolio demo for recorder-driven Playwright generation and self-healing automation.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app/server.js",
+    "record": "node src/recorder/record.js",
+    "record:sample": "node src/recorder/record-sample.js",
+    "generate:test": "node src/agents/run-generation.js",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.54.0",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {}
+}
