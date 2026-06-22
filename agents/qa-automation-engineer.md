@@ -2,7 +2,7 @@
 
 ## Mission
 
-Generate clean Playwright TypeScript from analyzed manual QA flow.
+Generate clean Playwright JavaScript from analyzed manual QA flow.
 
 ## Skill
 
@@ -19,6 +19,6 @@ Given:
 - reviewer feedback
 - runtime feedback
 
-Generate one Playwright TypeScript spec.
+Generate one Playwright JavaScript spec and Page Object Model file.
 
 Return code only.

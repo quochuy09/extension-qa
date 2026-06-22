@@ -9,6 +9,7 @@ The project has two product lanes:
 ```text
 Lane A - Manual QC Assistant
 Lane B - AI Automation Factory
+Lane C - Flow-Based Security Automation
 ```
 
 Current priority: **Lane B planning after Lane A MVP completion**.
@@ -72,6 +73,60 @@ Important note:
 - Lane B may use AI/Codex.
 - It cannot be guaranteed to be token-free.
 - Token usage should be reduced by deterministic parsing, selector cache, DOM filtering, templates, and only calling AI when needed.
+
+## Lane C: Flow-Based Security Automation
+
+Goal:
+
+- Reuse recorded business flows to run readable security checks without depending on OWASP ZAP logs.
+
+Core user story:
+
+```text
+As an SDET,
+I want to record a normal user flow once,
+then replay it with Playwright security checks,
+so that Dev can see which step/request caused a security finding.
+```
+
+Current direction:
+
+- Extension captures optional network evidence for requests caused by recorded actions.
+- Playwright security runner replays the UI flow first.
+- XSS payloads are injected into real UI input fields by default.
+- Request tampering uses Playwright runtime request capture as the primary source, then clones safe same-origin order-like JSON API requests with modified parameters.
+- Request tampering records targets, attempts, skipped request reasons, mutation category, and action-field mapping confidence.
+- Object-access proof uses local demo identities: Alice creates an order, Bob is rejected with `403`, and anonymous access is rejected with `401`.
+- Security HTML report shows tampering targets, attempts, skipped requests, findings, and object-access proof details.
+- Rules are OWASP-aligned, not ZAP-dependent.
+
+## Agent Workflow
+
+All future implementation phases should follow:
+
+```text
+Implementation Planner
+-> Plan Reviewer
+-> Domain Engineer
+-> Domain Reviewer
+-> Runtime Validator
+```
+
+Lane C security work uses the specialized chain:
+
+```text
+Security Planner
+-> Security Plan Reviewer
+-> Security Implementation Engineer
+-> Security Reviewer
+-> Runtime Validator
+```
+
+See:
+
+- `agents/workflow-plan-review-implement-test.md`
+- `agents/agent-registry.md`
+- `agents/interaction-contract.md`
 
 ## Current Working Lane
 
@@ -212,6 +267,8 @@ Completed:
 - Replay input overwrites existing value.
 - Recorder captures text input, textarea, select/dropdown, radio, and checkbox controls.
 - Replay supports text input, textarea, select/dropdown, radio, and checkbox controls.
+- Recorder and replay support Select2-like custom single select controls. Implemented.
+- Recorder and replay support custom multi-select checklist controls. Implemented.
 - Demo routes reset form controls to their default values when opened again.
 - Replay scrolls to element.
 - Replay highlights element.
@@ -253,6 +310,7 @@ Acceptance criteria:
 - Tester can save/export action log.
 - Tester can load the latest locally saved action log without selecting an old downloaded file.
 - Tester can record and replay common form controls: text, textarea, dropdown, radio, checkbox.
+- Tester can record and replay custom controls: Select2-like single select and multi-select checklist.
 - Action log is readable and stable.
 
 ## Phase A2: CSV/Data Loop
@@ -420,13 +478,15 @@ Muc tieu Lane B:
 - Muc tieu: doc action log JSON cua Lane A theo mot contract on dinh.
 - Input: exported action-log JSON, merged suite JSON.
 - Output: normalized automation contract object.
-- Trang thai: chua lam.
+- Trang thai: implemented MVP.
 - Can lam:
-  - schema validation
-  - adapter doc action log
-  - selector priority resolver
-  - control-type mapper
-  - error message ro rang khi JSON sai format
+  - schema validation. Done.
+  - adapter doc action log. Done.
+  - selector priority resolver. Done.
+  - control-type mapper. Done.
+  - error message ro rang khi JSON sai format. Done.
+  - future: validate merged suite JSON with more real samples.
+  - future: add stricter dataset/binding validation.
 
 #### B1 - Testcase Input Mode
 
@@ -458,26 +518,33 @@ Muc tieu Lane B:
 - Muc tieu: sinh Playwright JavaScript spec + Page Object Model doc duoc va maintain duoc.
 - Input: automation contract + element mappings.
 - Output: Playwright JavaScript spec file + POM files.
-- Trang thai: da co mot phan, can align lai voi Lane A schema.
-- Can lam:
-  - dung Lane A action log schema
+- Trang thai: MVP done cho exported action log.
+- Da lam:
+  - dung Lane A action log schema thong qua contract adapter
   - output ngon ngu: JavaScript
   - model bat buoc: POM - Page Object Model
   - support control types: text, textarea, select, radio, checkbox
+  - support custom controls: Select2-like single select, multi-select checklist
   - bat buoc dung `test.step(...)`
   - selector priority: testId -> roleText -> id -> css -> xpath
-  - CSV/data-driven loop
-  - suite/merged flow
+  - runtime runner dung chung co the chay truc tiep tu action log JSON
+  - generator ghi ra ca spec va page object
+  - reviewer check POM + `test.step`
+  - Playwright runtime validation da chay pass
+- Can lam sau:
+  - CSV/data-driven loop trong generated Playwright
+  - suite/merged flow generation
+  - agent interaction log chi tiet hon
 
 #### B4 - Runtime Validation
 
 - Muc tieu: chay Playwright test that va lay ket qua runtime.
 - Input: generated Playwright spec.
 - Output: pass/fail result + artifacts.
-- Trang thai: da co mot phan.
+- Trang thai: da co MVP runtime validation va failure classification co ban.
 - Can lam:
-  - classify failure
-  - attach trace/screenshot/report
+  - classify failure. Basic implementation done.
+  - attach trace/screenshot/report. Basic artifact pointers done.
   - dua runtime error quay lai generator/reviewer
   - luu validation history
 
@@ -511,9 +578,9 @@ Muc tieu Lane B:
 
 ### Thu tu nen lam
 
-1. B0 - Action Log Contract Adapter.
-2. B3 - Playwright generation tu exported action logs.
-3. B4 - Runtime validation loop.
+1. B0 - Action Log Contract Adapter. MVP done.
+2. B3 - Playwright generation tu exported action logs. MVP done.
+3. B4 - Runtime validation loop. Next.
 4. B5 - Self-healing cho selector failure.
 5. B1/B2 - Testcase text va UI exploration sau khi action-log path da on dinh.
 
@@ -574,7 +641,7 @@ Token-saving strategy:
 
 ## Phase B3: Playwright Code Generation
 
-Status: Partially implemented, future alignment needed
+Status: MVP implemented for exported action logs
 
 Goal:
 
@@ -589,7 +656,13 @@ Required output style:
 
 Already exists:
 
-- Deterministic generator.
+- Deterministic generator from Lane A action log contract.
+- JavaScript spec output.
+- Page Object Model output.
+- `test.step(...)` wrapping for readable testcase steps.
+- Selector priority: testId -> roleText -> id -> css -> xpath.
+- Control support: text, textarea, select, radio, checkbox, click.
+- Custom control support: Select2-like single select and multi-select checklist.
 - Reviewer agent.
 - Codex-ready adapter.
 - Playwright config.
@@ -597,16 +670,15 @@ Already exists:
 
 Needs alignment later:
 
-- Use Lane A action log schema.
-- Add an action-log contract adapter as the only supported input boundary.
 - Support CSV/data-driven loops.
 - Support testcase input mode.
 - Use Manual Analyst output.
 - Store agent interaction logs.
+- Generate from suite/merged flow contracts.
 
 ## Phase B4: Runtime Validation
 
-Status: Partially implemented
+Status: MVP implemented, future alignment needed
 
 Goal:
 
@@ -616,11 +688,17 @@ Already exists:
 
 - Playwright test runner integration.
 - Runtime validation command.
+- Basic failure classification:
+  - selector failure
+  - assertion failure
+  - runtime error
+  - unknown failure
+- Generation log includes runtime classification and artifact pointers.
 
 Needs alignment later:
 
-- Better failure classification.
-- Better report artifacts.
+- Deeper failure classification from Playwright JSON result details.
+- Trace/screenshot attachment policy.
 - Integration with dashboard.
 
 ## Phase B5: Self-Healing
@@ -740,15 +818,13 @@ Implementation tasks:
 
 ## Current Next Recommended Task
 
-Prepare the next lane while keeping Lane A stable.
+Prepare the next Lane C server-side security phase while keeping Lane A/B stable.
 
 Recommended sequence:
 
-1. Finish documentation refresh for Lane A MVP.
-2. Create a short customer demo script for Lane A.
-3. Add/align the Lane B action-log contract adapter.
-4. Start Playwright generation from exported action logs.
-5. Decide whether to improve the extension UI with Side Panel before deeper Lane B work.
+1. Add an optional intentionally vulnerable local demo mode only if needed for fail-case demos.
+2. Add more OWASP rules beyond the current local flow-based checks.
+3. Keep API replay same-origin/local only unless an explicit allowlist is added.
 
 ## Decisions Already Made
 

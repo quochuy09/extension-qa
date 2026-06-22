@@ -35,6 +35,19 @@ flowchart LR
 
 Lane B is future scope. It should reuse Lane A data and selector assets through the exported action log contract.
 
+## Future Architecture: Lane C Security Automation
+
+```mermaid
+flowchart LR
+  EXT[Chrome Extension Recorder] --> LOG[Action Log + Network Evidence]
+  LOG --> PW[Playwright UI Replay]
+  PW --> OBS[Runtime Network Observer]
+  OBS --> RULES[OWASP-Aligned Security Rules]
+  RULES --> REPORT[Readable Dev Finding]
+```
+
+Lane C is flow-based security testing. It does not wrap OWASP ZAP logs. It replays the recorded business flow, injects safe payloads through real UI inputs when needed, observes browser/network behavior, and reports findings with OWASP references.
+
 Important boundary:
 
 - Lane B should consume exported action logs, not Chrome extension popup state.

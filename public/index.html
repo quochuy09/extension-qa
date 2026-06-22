@@ -77,6 +77,60 @@
               <option value="pickup">Store pickup</option>
             </select>
 
+            <label id="superior-employee-label">Superior employee</label>
+            <div
+              class="select2-demo"
+              data-control-type="select2"
+              data-testid="superior-employee-select2"
+              data-selected-value=""
+              data-selected-text="未選択"
+            >
+              <select id="superior-employee" class="select2-hidden" name="superiorEmployee" tabindex="-1" aria-hidden="true">
+                <option value="">未選択</option>
+                <option value="employee-19">山田 太郎</option>
+                <option value="employee-20">佐藤 花子</option>
+                <option value="employee-21">鈴木 一郎</option>
+              </select>
+              <button
+                class="select2-selection"
+                data-role="select2-button"
+                type="button"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="superior-employee-label superior-employee-rendered"
+              >
+                <span id="superior-employee-rendered" data-role="select2-rendered">未選択</span>
+                <span aria-hidden="true">⌄</span>
+              </button>
+              <div class="select2-results" data-role="select2-results" role="listbox" hidden>
+                <button type="button" role="option" data-option-value="">未選択</button>
+                <button type="button" role="option" data-option-value="employee-19">山田 太郎</button>
+                <button type="button" role="option" data-option-value="employee-20">佐藤 花子</button>
+                <button type="button" role="option" data-option-value="employee-21">鈴木 一郎</button>
+              </div>
+            </div>
+
+            <label id="face-photo-label">Face photo checklist</label>
+            <div
+              class="multiselect-demo"
+              data-control-type="multiselect"
+              data-testid="face-photo-multiselect"
+              aria-labelledby="face-photo-label"
+            >
+              <button class="multiselect-button" data-role="multiselect-button" type="button" aria-expanded="false">Choose options</button>
+              <div class="multiselect-options" data-role="multiselect-options" hidden>
+                <label class="choice" data-option-value="1">
+                  <input data-testid="face-photo-yes-checkbox" name="facePhoto[]" type="checkbox" value="1" />
+                  あり
+                </label>
+                <label class="choice" data-option-value="0">
+                  <input data-testid="face-photo-no-checkbox" name="facePhoto[]" type="checkbox" value="0" />
+                  なし
+                </label>
+              </div>
+            </div>
+
             <fieldset>
               <legend>Payment method</legend>
               <label class="choice">

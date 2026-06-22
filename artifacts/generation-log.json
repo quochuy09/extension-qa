@@ -2,21 +2,36 @@
   {
     "runtimeAttempt": 1,
     "reviewRound": 1,
+    "actionLogPath": "D:\\github_demo\\logs\\Manual-QC-Suite.json",
     "generator": "Agent Generator",
     "generatorMode": "deterministic-fallback",
     "reviewer": "Agent Reviewer",
     "reviewerMode": "deterministic-fallback",
     "approved": true,
     "findings": [],
-    "targetPath": "tests/generated-checkout.spec.ts"
+    "targetPath": "tests/generated/manual-qc-suite.spec.js",
+    "files": [
+      "tests/generated/pages/manual-qc-suite.page.js",
+      "tests/generated/manual-qc-suite.spec.js"
+    ]
   },
   {
     "runtimeValidation": {
       "attempt": 1,
-      "command": "C:\\Program Files\\nodejs\\node.exe node_modules/playwright/cli.js test",
+      "command": "C:\\Program Files\\nodejs\\node.exe node_modules/playwright/cli.js test tests/generated/manual-qc-suite.spec.js",
       "passed": true,
       "exitCode": 0,
-      "summary": "Running 1 test using 1 worker | ok 1 tests\\generated-checkout.spec.ts:4:3 > Generated checkout flow > customer can login, add an item, and place an order (496ms) | 1 passed (1.4s)"
+      "summary": "Running 1 test using 1 worker | >  1 tests\\generated\\manual-qc-suite.spec.js:5:3 > Manual QC Suite > Manual QC Suite (671ms) | 1 passed (1.8s)",
+      "classification": {
+        "status": "passed",
+        "category": "none",
+        "retryableByHealing": false,
+        "reason": "Playwright runtime validation passed."
+      },
+      "artifacts": {
+        "jsonReport": "artifacts/playwright-results.json",
+        "outputDir": "test-results"
+      }
     }
   }
 ]

@@ -20,6 +20,8 @@ For Lane B, it will later support:
 - Playwright runtime validation
 - self-healing context
 
+For security automation, it may also carry request/response evidence captured during recording so Playwright security checks can explain which user action caused a risky request.
+
 ## Action Log Contract For Lane B
 
 The action log JSON is the primary portable contract between Lane A and Lane B.
@@ -134,11 +136,52 @@ Generation requirements:
         "css": "#login-button",
         "xpath": "//*[@data-testid=\"login-button\"]"
       },
-      "elementSignature": "[data-testid=\"login-button\"]"
+      "elementSignature": "[data-testid=\"login-button\"]",
+      "networkEvents": [
+        {
+          "id": "net-001",
+          "actionId": "act-001",
+          "method": "POST",
+          "url": "http://localhost:4173/api/login",
+          "status": 200,
+          "requestHeaders": {
+            "content-type": "application/json"
+          },
+          "requestBody": "{\"username\":\"standard_user\",\"password\":\"[redacted]\"}",
+          "requestBodyType": "json",
+          "requestBodyRedacted": true,
+          "requestBodyTruncated": false,
+          "responseHeaders": {
+            "content-type": "application/json"
+          },
+          "responseBodyPreview": "{\"ok\":true}",
+          "source": "content-script-network-bridge"
+        }
+      ]
     }
   ]
 }
 ```
+
+## Network Evidence Extension
+
+Network evidence is optional and non-breaking. Actions that do not trigger a request simply omit `networkEvents`.
+
+Rules:
+
+- Capture only authorized/local target requests.
+- Link request/response evidence to the action that most likely caused it.
+- Redact sensitive values such as passwords, tokens, authorization headers, and cookies.
+- Keep response body previews small and human-readable.
+- Treat extension-captured evidence as context; Playwright security runtime should still observe network again during execution.
+
+Optional request body metadata is allowed without changing `metadata.schemaVersion`:
+
+| Field | Meaning |
+| --- | --- |
+| `requestBodyType` | Best-effort body type such as `json`, `form-urlencoded`, `form-data`, `text`, `empty`, or binary-like placeholders. |
+| `requestBodyRedacted` | `true` when sensitive fields or unsupported body values were removed/redacted. |
+| `requestBodyTruncated` | `true` when the captured body exceeded the recorder preview limit. |
 
 ## Dataset Extension
 

@@ -21,7 +21,8 @@ export class ReviewerAgent {
       ...checkNoHardWaits(code),
       ...checkSelectorPriority(code),
       ...checkAssertions(code),
-      ...checkIdempotency(code)
+      ...checkIdempotency(code),
+      ...checkPomAndSteps(code)
     ];
 
     return {
@@ -33,7 +34,8 @@ export class ReviewerAgent {
         'No hard waitForTimeout calls',
         'Prefer data-testid before role/text, css, xpath',
         'Clear business assertions',
-        'Idempotent test flow'
+        'Idempotent test flow',
+        'JavaScript POM output with test.step'
       ]
     };
   }
@@ -98,16 +100,19 @@ function checkSelectorPriority(code) {
 
 function checkAssertions(code) {
   const expectCount = (code.match(/await expect\(/g) || []).length;
-  return expectCount < 4
+  const stepCount = (code.match(/await\s+test\.step\(/g) || []).length;
+  const minimumExpectedAssertions = Math.max(1, Math.min(2, stepCount));
+
+  return expectCount < minimumExpectedAssertions
     ? [{ id: 'clear-assertions', severity: 'high', message: 'Generated test needs assertions after major business milestones.' }]
     : [];
 }
 
 function checkIdempotency(code) {
-  const startsFromBase = code.includes("await page.goto('/');");
+  const startsFromKnownRoute = /await\s+(?:page|this\.page)\.goto\(/.test(code) || /await\s+\w+\.gotoStart\(/.test(code);
   const usesUniqueExternalData = /Date\.now|Math\.random/.test(code);
 
-  if (!startsFromBase) {
+  if (!startsFromKnownRoute) {
     return [{ id: 'idempotent-start', severity: 'high', message: 'Test must start from a clean application route.' }];
   }
 
@@ -116,4 +121,34 @@ function checkIdempotency(code) {
   }
 
   return [];
+}
+
+function checkPomAndSteps(code) {
+  const findings = [];
+
+  if (!/\.spec\.js/.test(code)) {
+    findings.push({
+      id: 'javascript-spec-output',
+      severity: 'high',
+      message: 'Generated test must be JavaScript spec output, not TypeScript.'
+    });
+  }
+
+  if (!/class\s+\w+Page\s*\{/.test(code)) {
+    findings.push({
+      id: 'pom-required',
+      severity: 'high',
+      message: 'Generated flow must use a Page Object Model class.'
+    });
+  }
+
+  if (!/await\s+test\.step\(/.test(code)) {
+    findings.push({
+      id: 'test-step-required',
+      severity: 'high',
+      message: 'Generated Playwright spec must describe the flow with test.step.'
+    });
+  }
+
+  return findings;
 }

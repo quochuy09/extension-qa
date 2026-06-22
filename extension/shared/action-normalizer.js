@@ -48,10 +48,14 @@
       result.push(action);
     }
 
-    return result.map((action, index) => ({
-      ...stripInternalFields(action),
-      id: `act-${String(index + 1).padStart(3, '0')}`
-    }));
+    return result.map((action, index) => {
+      const id = `act-${String(index + 1).padStart(3, '0')}`;
+      return {
+        ...stripInternalFields(action),
+        id,
+        networkEvents: normalizeNetworkEvents(action.networkEvents, id)
+      };
+    });
   }
 
   function shouldDedupe(previous, action) {
@@ -69,6 +73,32 @@
   function stripInternalFields(action) {
     const { importBatchId, ...publicAction } = action;
     return publicAction;
+  }
+
+  function normalizeNetworkEvents(networkEvents, actionId) {
+    if (!Array.isArray(networkEvents) || networkEvents.length === 0) {
+      return undefined;
+    }
+
+    return networkEvents.map((event, index) => ({
+      id: event.id || `${actionId}-net-${index + 1}`,
+      actionId,
+      method: event.method || 'GET',
+      url: event.url || '',
+      status: typeof event.status === 'number' ? event.status : null,
+      startedAt: event.startedAt || null,
+      capturedAt: event.capturedAt || null,
+      requestHeaders: event.requestHeaders || {},
+      requestBody: event.requestBody ?? null,
+      requestBodyType: event.requestBodyType || null,
+      requestBodyRedacted: Boolean(event.requestBodyRedacted),
+      requestBodyTruncated: Boolean(event.requestBodyTruncated),
+      responseHeaders: event.responseHeaders || {},
+      responseBodyPreview: event.responseBodyPreview ?? null,
+      failed: Boolean(event.failed),
+      error: event.error || null,
+      source: event.source || 'unknown'
+    }));
   }
 
   function enrichActionContext(action, state = {}) {
@@ -177,12 +207,14 @@
   }
 
   function datasetForExport(dataset) {
+    const rows = Array.isArray(dataset.rows) ? dataset.rows : [];
     return {
       id: dataset.id,
       name: dataset.name,
       columns: dataset.columns || [],
-      rowCount: dataset.rowCount || dataset.rows?.length || 0,
-      rowsPreview: (dataset.rows || []).slice(0, 3)
+      rowCount: dataset.rowCount || rows.length || 0,
+      rows,
+      rowsPreview: rows.slice(0, 3)
     };
   }
 

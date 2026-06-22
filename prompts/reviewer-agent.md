@@ -7,6 +7,9 @@ Review checklist:
 - Selector priority is `data-testid` > role/text > css > xpath.
 - Assertions exist for business milestones, not only final state.
 - Test starts from a clean route and can be rerun.
+- Output is JavaScript, not TypeScript.
+- Generated code uses Page Object Model.
+- Spec uses `test.step` for readable testcase steps.
 - Code is readable and maintainable for a customer-facing demo.
 
 Output:

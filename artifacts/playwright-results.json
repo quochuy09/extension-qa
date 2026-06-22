@@ -2,7 +2,7 @@
   "config": {
     "argv": [
       "C:\\Program Files\\nodejs\\node.exe",
-      "D:\\github_demo\\node_modules\\playwright\\cli.js",
+      "D:\\github_demo\\node_modules\\@playwright\\test\\cli.js",
       "test"
     ],
     "configFile": "D:\\github_demo\\playwright.config.ts",
@@ -17,7 +17,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 3
     },
     "preserveOutput": "always",
     "projects": [
@@ -26,12 +26,14 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 3
         },
         "id": "",
         "name": "",
         "testDir": "D:/github_demo/tests",
-        "testIgnore": [],
+        "testIgnore": [
+          "**/action-log-runtime.spec.js"
+        ],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
@@ -70,20 +72,20 @@
   },
   "suites": [
     {
-      "title": "generated-checkout.spec.ts",
-      "file": "generated-checkout.spec.ts",
+      "title": "generated\\checkout-flow.spec.js",
+      "file": "generated/checkout-flow.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Generated checkout flow",
-          "file": "generated-checkout.spec.ts",
-          "line": 3,
+          "title": "checkout flow",
+          "file": "generated/checkout-flow.spec.js",
+          "line": 4,
           "column": 6,
           "specs": [
             {
-              "title": "customer can login, add an item, and place an order",
+              "title": "checkout flow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -98,30 +100,22 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 496,
+                      "duration": 571,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
                       "steps": [
                         {
-                          "title": "Login",
-                          "duration": 130
-                        },
-                        {
-                          "title": "Products",
-                          "duration": 101
-                        },
-                        {
                           "title": "Cart",
-                          "duration": 30
+                          "duration": 84
                         },
                         {
                           "title": "Checkout",
-                          "duration": 74
+                          "duration": 257
                         }
                       ],
-                      "startTime": "2026-06-18T09:07:30.087Z",
+                      "startTime": "2026-06-19T11:29:14.879Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -129,9 +123,131 @@
                   "status": "expected"
                 }
               ],
-              "id": "2b6b7339ddae769b8613-0c6fd72015c63c7c9aaf",
-              "file": "generated-checkout.spec.ts",
-              "line": 4,
+              "id": "77b96e8fb6b071a57941-1d72b3cf9bb1dbbf7222",
+              "file": "generated/checkout-flow.spec.js",
+              "line": 5,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "generated\\login-flow.spec.js",
+      "file": "generated/login-flow.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "login flow",
+          "file": "generated/login-flow.spec.js",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "login flow",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 369,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Login",
+                          "duration": 144
+                        }
+                      ],
+                      "startTime": "2026-06-19T11:29:14.846Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "36e6d04d800089ceaf1d-0c5064aba443bd8d7fa0",
+              "file": "generated/login-flow.spec.js",
+              "line": 5,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "generated\\manual-qc-suite.spec.js",
+      "file": "generated/manual-qc-suite.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Manual QC Suite",
+          "file": "generated/manual-qc-suite.spec.js",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Manual QC Suite",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 782,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "login flow",
+                          "duration": 141
+                        },
+                        {
+                          "title": "add cart flow",
+                          "duration": 159
+                        },
+                        {
+                          "title": "checkout flow",
+                          "duration": 229
+                        }
+                      ],
+                      "startTime": "2026-06-19T11:29:14.894Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e625430916edb50332d7-f49861db64d95695aa3c",
+              "file": "generated/manual-qc-suite.spec.js",
+              "line": 5,
               "column": 3
             }
           ]
@@ -141,9 +257,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-06-18T09:07:29.401Z",
-    "duration": 1420.98,
-    "expected": 1,
+    "startTime": "2026-06-19T11:29:14.091Z",
+    "duration": 2128.808,
+    "expected": 3,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

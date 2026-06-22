@@ -138,6 +138,20 @@ document.querySelector('#clear-csv').addEventListener('click', async () => {
   setMessage('CSV dataset cleared.');
 });
 
+document.querySelector('#data-download').addEventListener('click', async () => {
+  const state = await getState();
+  const actionLog = window.FactoryActionNormalizer.normalizeRecording(state);
+  const fileName = `${sanitizeFileName(actionLog.testCase?.name || state.testCaseName, 'action-log')}-csv.json`;
+  downloadJson(actionLog, fileName);
+  setMessage(`Downloaded ${fileName}`);
+});
+
+document.querySelector('#data-save-local').addEventListener('click', async () => {
+  const state = await getState();
+  const actionLog = window.FactoryActionNormalizer.normalizeRecording(state);
+  await saveActionLogLocal(actionLog);
+});
+
 document.querySelector('#export-report').addEventListener('click', async () => {
   const state = await getState();
   downloadJson(buildReportData(state), 'manual-qc-run-report.json');
@@ -161,6 +175,10 @@ document.querySelector('#download').addEventListener('click', async () => {
 document.querySelector('#save-local').addEventListener('click', async () => {
   const state = await getState();
   const actionLog = window.FactoryActionNormalizer.normalizeRecording(state);
+  await saveActionLogLocal(actionLog);
+});
+
+async function saveActionLogLocal(actionLog) {
   const response = await fetch('http://localhost:4173/api/recordings', {
     method: 'POST',
     headers: {
@@ -176,7 +194,7 @@ document.querySelector('#save-local').addEventListener('click', async () => {
 
   const result = await response.json();
   setMessage(`Saved ${result.actionCount} steps to logs/action-log.json and ${pathFileName(result.namedPath)}`);
-});
+}
 
 document.querySelector('#load-local').addEventListener('click', async () => {
   const response = await fetch('http://localhost:4173/api/recordings/latest');
@@ -1304,6 +1322,7 @@ async function importActionLog(actionLog) {
       repeatCount: Math.max(1, Number(group.repeat?.count || 1))
     };
   }
+  const dataset = datasetFromActionLog(actionLog);
 
   await patchState({
     rawActions: importedActions,
@@ -1312,11 +1331,39 @@ async function importActionLog(actionLog) {
     startUrl: actionLog.session?.startUrl || importedActions[0]?.url || '',
     groupSettings,
     customStepDescriptions: Object.fromEntries(importedActions.map((action) => [action.id, action.description]).filter(([, description]) => description)),
-    dataset: null,
-    datasetBindings: {},
+    dataset,
+    datasetBindings: bindingsFromActionLog(actionLog.bindings || []),
     lastReplayRun: null,
     lastCsvRun: null
   });
+}
+
+function datasetFromActionLog(actionLog) {
+  const dataset = actionLog.datasets?.[0];
+  if (!dataset) {
+    return null;
+  }
+
+  const rows = Array.isArray(dataset.rows) ? dataset.rows : dataset.rowsPreview || [];
+  return {
+    id: dataset.id,
+    name: dataset.name || 'dataset.csv',
+    columns: dataset.columns || [],
+    rows,
+    rowCount: Number(dataset.rowCount || rows.length || 0),
+    truncated: Boolean(dataset.truncated)
+  };
+}
+
+function bindingsFromActionLog(bindings) {
+  return Object.fromEntries(
+    bindings
+      .filter((binding) => binding?.actionId && binding?.column)
+      .map((binding) => [binding.actionId, {
+        datasetId: binding.datasetId,
+        column: binding.column
+      }])
+  );
 }
 
 async function importActionLogFromInput(input) {

@@ -3,13 +3,14 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { GeneratorAgent } from './generator-agent.js';
 import { ReviewerAgent } from './reviewer-agent.js';
+import { readActionLog } from '../runtime/action-log-file.js';
+import { classifyRuntimeResult } from '../runtime/runtime-result-classifier.js';
 
-const actionLogPath = process.env.ACTION_LOG || 'logs/action-log.json';
 const maxReviewRounds = Number(process.env.MAX_REVIEW_ROUNDS || 3);
 const maxRuntimeAttempts = Number(process.env.MAX_RUNTIME_ATTEMPTS || 3);
 const generationLogPath = 'artifacts/generation-log.json';
 
-const recording = JSON.parse(await fs.readFile(actionLogPath, 'utf8'));
+const { filePath: actionLogPath, actionLog: recording } = await readActionLog(process.argv[2]);
 const generator = new GeneratorAgent();
 const reviewer = new ReviewerAgent();
 const generationLog = [];
@@ -25,19 +26,21 @@ for (let attempt = 1; attempt <= maxRuntimeAttempts; attempt += 1) {
 
   for (let round = 1; round <= maxReviewRounds; round += 1) {
     generated = await generator.generate({ recording, reviewFeedback, runtimeFeedback });
-    await writeFileEnsuringDir(generated.targetPath, generated.code);
+    await writeGeneratedFiles(generated);
 
-    review = await reviewer.review({ code: generated.code });
+    review = await reviewer.review({ code: reviewableCode(generated) });
     generationLog.push({
       runtimeAttempt: attempt,
       reviewRound: round,
+      actionLogPath,
       generator: generated.agent,
       generatorMode: generated.mode,
       reviewer: review.agent,
       reviewerMode: review.mode,
       approved: review.approved,
       findings: review.findings,
-      targetPath: generated.targetPath
+      targetPath: generated.targetPath,
+      files: generatedFiles(generated).map((file) => file.path)
     });
 
     console.log(`[attempt ${attempt} round ${round}] reviewer approved: ${review.approved}`);
@@ -53,14 +56,20 @@ for (let attempt = 1; attempt <= maxRuntimeAttempts; attempt += 1) {
     throw new Error(`Reviewer did not approve after ${maxReviewRounds} rounds.`);
   }
 
-  runtimeResult = await runPlaywright();
+  runtimeResult = await runPlaywright(generated.targetPath);
+  const runtimeClassification = classifyRuntimeResult(runtimeResult);
   generationLog.push({
     runtimeValidation: {
       attempt,
-      command: `${process.execPath} node_modules/playwright/cli.js test`,
+      command: `${process.execPath} node_modules/playwright/cli.js test ${generated.targetPath}`,
       passed: runtimeResult.exitCode === 0,
       exitCode: runtimeResult.exitCode,
-      summary: summarizeRuntimeOutput(runtimeResult.output)
+      summary: summarizeRuntimeOutput(runtimeResult.output),
+      classification: runtimeClassification,
+      artifacts: {
+        jsonReport: 'artifacts/playwright-results.json',
+        outputDir: 'test-results'
+      }
     }
   });
 
@@ -72,7 +81,8 @@ for (let attempt = 1; attempt <= maxRuntimeAttempts; attempt += 1) {
     id: 'runtime-validation-failed',
     severity: 'high',
     message: 'Playwright runtime validation failed. Regenerate using the captured runner output.',
-    summary: summarizeRuntimeOutput(runtimeResult.output)
+    summary: summarizeRuntimeOutput(runtimeResult.output),
+    classification: runtimeClassification
   };
 }
 
@@ -84,12 +94,15 @@ if (runtimeResult.exitCode !== 0) {
 }
 
 console.log(`Generated test: ${generated.targetPath}`);
+for (const file of generatedFiles(generated)) {
+  console.log(`Generated file: ${file.path}`);
+}
 console.log(`Generation log: ${generationLogPath}`);
 
-async function runPlaywright() {
+async function runPlaywright(testPath) {
   return new Promise((resolve) => {
     const playwrightCli = path.resolve('node_modules/playwright/cli.js');
-    const child = spawn(process.execPath, [playwrightCli, 'test'], {
+    const child = spawn(process.execPath, [playwrightCli, 'test', testPath], {
       cwd: process.cwd(),
       env: process.env
     });
@@ -112,6 +125,31 @@ async function runPlaywright() {
 async function writeFileEnsuringDir(filePath, content) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   await fs.writeFile(filePath, content, 'utf8');
+}
+
+async function writeGeneratedFiles(generatedOutput) {
+  for (const file of generatedFiles(generatedOutput)) {
+    await writeFileEnsuringDir(file.path, file.code);
+  }
+}
+
+function generatedFiles(generatedOutput) {
+  if (Array.isArray(generatedOutput.files) && generatedOutput.files.length > 0) {
+    return generatedOutput.files;
+  }
+
+  return [
+    {
+      path: generatedOutput.targetPath,
+      code: generatedOutput.code
+    }
+  ];
+}
+
+function reviewableCode(generatedOutput) {
+  return generatedFiles(generatedOutput)
+    .map((file) => `// FILE: ${file.path}\n${file.code}`)
+    .join('\n\n');
 }
 
 async function writeGenerationLog(log) {

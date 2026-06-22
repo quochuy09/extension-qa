@@ -1,0 +1,216 @@
+{
+  "generatedAt": "2026-06-22T09:22:23.291Z",
+  "source": "D:\\github_demo\\logs\\Manual-QC-Suite.json",
+  "checks": [
+    "xss"
+  ],
+  "testCaseName": "Manual QC Suite",
+  "results": [
+    {
+      "timestamp": "2026-06-22T09:22:24.034Z",
+      "type": "business-flow-replay",
+      "name": "login flow",
+      "actionCount": 3,
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:24.486Z",
+      "type": "business-flow-replay",
+      "name": "add cart flow",
+      "actionCount": 6,
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:25.109Z",
+      "type": "business-flow-replay",
+      "name": "checkout flow",
+      "actionCount": 14,
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:26.320Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"standard_user\" into Username field",
+      "actionId": "act-001",
+      "payload": {
+        "id": "html-marker",
+        "marker": "xss-test-marker-001",
+        "value": "<xss-test-marker-001>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:27.005Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"standard_user\" into Username field",
+      "actionId": "act-001",
+      "payload": {
+        "id": "attribute-breakout-marker",
+        "marker": "xss-test-marker-002",
+        "value": "\"><xss-test-marker-002>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:28.172Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"standard_user\" into Username field",
+      "actionId": "act-001",
+      "payload": {
+        "id": "single-quote-breakout-marker",
+        "marker": "xss-test-marker-003",
+        "value": "'><xss-test-marker-003>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:28.874Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"secret_sauce\" into Password field",
+      "actionId": "act-002",
+      "payload": {
+        "id": "html-marker",
+        "marker": "xss-test-marker-001",
+        "value": "<xss-test-marker-001>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:29.985Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"secret_sauce\" into Password field",
+      "actionId": "act-002",
+      "payload": {
+        "id": "attribute-breakout-marker",
+        "marker": "xss-test-marker-002",
+        "value": "\"><xss-test-marker-002>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:31.141Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"secret_sauce\" into Password field",
+      "actionId": "act-002",
+      "payload": {
+        "id": "single-quote-breakout-marker",
+        "marker": "xss-test-marker-003",
+        "value": "'><xss-test-marker-003>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:32.237Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"Luong Huy\" into Full name field",
+      "actionId": "act-008",
+      "payload": {
+        "id": "html-marker",
+        "marker": "xss-test-marker-001",
+        "value": "<xss-test-marker-001>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:32.936Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"Luong Huy\" into Full name field",
+      "actionId": "act-008",
+      "payload": {
+        "id": "attribute-breakout-marker",
+        "marker": "xss-test-marker-002",
+        "value": "\"><xss-test-marker-002>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:34.127Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"Luong Huy\" into Full name field",
+      "actionId": "act-008",
+      "payload": {
+        "id": "single-quote-breakout-marker",
+        "marker": "xss-test-marker-003",
+        "value": "'><xss-test-marker-003>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:35.281Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"5005112\" into Postal code field",
+      "actionId": "act-009",
+      "payload": {
+        "id": "html-marker",
+        "marker": "xss-test-marker-001",
+        "value": "<xss-test-marker-001>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:36.472Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"5005112\" into Postal code field",
+      "actionId": "act-009",
+      "payload": {
+        "id": "attribute-breakout-marker",
+        "marker": "xss-test-marker-002",
+        "value": "\"><xss-test-marker-002>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:37.620Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"5005112\" into Postal code field",
+      "actionId": "act-009",
+      "payload": {
+        "id": "single-quote-breakout-marker",
+        "marker": "xss-test-marker-003",
+        "value": "'><xss-test-marker-003>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:38.764Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"20/06/2026\" into Delivery note field",
+      "actionId": "act-013",
+      "payload": {
+        "id": "html-marker",
+        "marker": "xss-test-marker-001",
+        "value": "<xss-test-marker-001>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:39.887Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"20/06/2026\" into Delivery note field",
+      "actionId": "act-013",
+      "payload": {
+        "id": "attribute-breakout-marker",
+        "marker": "xss-test-marker-002",
+        "value": "\"><xss-test-marker-002>"
+      },
+      "findings": []
+    },
+    {
+      "timestamp": "2026-06-22T09:22:41.010Z",
+      "type": "xss-ui-payload",
+      "name": "Input \"20/06/2026\" into Delivery note field",
+      "actionId": "act-013",
+      "payload": {
+        "id": "single-quote-breakout-marker",
+        "marker": "xss-test-marker-003",
+        "value": "'><xss-test-marker-003>"
+      },
+      "findings": []
+    }
+  ],
+  "summary": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0
+  }
+}

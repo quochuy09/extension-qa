@@ -1,0 +1,385 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-06-19T08:39:07.005Z",
+  "source": "suite-builder",
+  "testCase": {
+    "name": "Manual QC Suite",
+    "description": "Merged flow downloaded from Suite Builder"
+  },
+  "session": {
+    "startUrl": "http://localhost:4173/"
+  },
+  "metadata": {
+    "flowCount": 3,
+    "actionCount": 14
+  },
+  "actions": [
+    {
+      "description": "Input \"standard_user\" into Username field",
+      "elementSignature": "[data-testid=\"username-input\"]",
+      "groupName": "login flow",
+      "id": "act-001",
+      "primarySelector": "[data-testid=\"username-input\"]",
+      "screenName": "Login Page",
+      "selectors": {
+        "css": "#username",
+        "id": "#username",
+        "roleText": "getByRole('textbox', { name: 'Username' })",
+        "testId": "[data-testid=\"username-input\"]",
+        "xpath": "//*[@data-testid=\"username-input\"]"
+      },
+      "targetTag": "input",
+      "targetText": "Username",
+      "timestamp": "2026-06-19T02:03:10.115Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/",
+      "value": "standard_user"
+    },
+    {
+      "description": "Input \"secret_sauce\" into Password field",
+      "elementSignature": "[data-testid=\"password-input\"]",
+      "groupName": "login flow",
+      "id": "act-002",
+      "primarySelector": "[data-testid=\"password-input\"]",
+      "screenName": "Login Page",
+      "selectors": {
+        "css": "#password",
+        "id": "#password",
+        "roleText": "getByRole('textbox', { name: 'Password' })",
+        "testId": "[data-testid=\"password-input\"]",
+        "xpath": "//*[@data-testid=\"password-input\"]"
+      },
+      "targetTag": "input",
+      "targetText": "Password",
+      "timestamp": "2026-06-19T02:03:21.773Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/",
+      "value": "secret_sauce"
+    },
+    {
+      "description": "Click Login button",
+      "elementSignature": "[data-testid=\"login-button\"]",
+      "groupName": "login flow",
+      "id": "act-003",
+      "primarySelector": "[data-testid=\"login-button\"]",
+      "screenName": "Login Page",
+      "selectors": {
+        "css": "#login-button",
+        "id": "#login-button",
+        "roleText": "getByRole('button', { name: 'Login' })",
+        "testId": "[data-testid=\"login-button\"]",
+        "xpath": "//*[@data-testid=\"login-button\"]"
+      },
+      "targetTag": "button",
+      "targetText": "Login",
+      "timestamp": "2026-06-19T02:03:21.861Z",
+      "title": "Factory Demo Shop",
+      "type": "click",
+      "url": "http://localhost:4173/",
+      "value": null
+    },
+    {
+      "description": "Click Add to cart button for Bento Stand",
+      "elementSignature": "[data-testid=\"add-to-cart-bento-stand\"]",
+      "groupName": "add cart flow",
+      "id": "act-004",
+      "primarySelector": "[data-testid=\"add-to-cart-bento-stand\"]",
+      "screenName": "Product List Page",
+      "selectors": {
+        "css": "#add-bento-stand",
+        "id": "#add-bento-stand",
+        "roleText": "getByRole('button', { name: 'Add to cart' })",
+        "testId": "[data-testid=\"add-to-cart-bento-stand\"]",
+        "xpath": "//*[@data-testid=\"add-to-cart-bento-stand\"]"
+      },
+      "targetTag": "button",
+      "targetText": "Add to cart",
+      "timestamp": "2026-06-19T02:05:52.341Z",
+      "title": "Factory Demo Shop",
+      "type": "click",
+      "url": "http://localhost:4173/#/products",
+      "value": null
+    },
+    {
+      "description": "Click Add to cart button for QA Notebook",
+      "elementSignature": "[data-testid=\"add-to-cart-qa-notebook\"]",
+      "groupName": "add cart flow",
+      "id": "act-005",
+      "primarySelector": "[data-testid=\"add-to-cart-qa-notebook\"]",
+      "screenName": "Product List Page",
+      "selectors": {
+        "css": "#add-qa-notebook",
+        "id": "#add-qa-notebook",
+        "roleText": "getByRole('button', { name: 'Add to cart' })",
+        "testId": "[data-testid=\"add-to-cart-qa-notebook\"]",
+        "xpath": "//*[@data-testid=\"add-to-cart-qa-notebook\"]"
+      },
+      "targetTag": "button",
+      "targetText": "Add to cart",
+      "timestamp": "2026-06-19T02:05:53.133Z",
+      "title": "Factory Demo Shop",
+      "type": "click",
+      "url": "http://localhost:4173/#/products",
+      "value": null
+    },
+    {
+      "description": "Click Cart 2 button",
+      "elementSignature": "[data-testid=\"nav-cart\"]",
+      "groupName": "add cart flow",
+      "id": "act-006",
+      "primarySelector": "[data-testid=\"nav-cart\"]",
+      "screenName": "Product List Page",
+      "selectors": {
+        "css": "#nav-cart",
+        "id": "#nav-cart",
+        "roleText": "getByRole('button', { name: 'Cart 2' })",
+        "testId": "[data-testid=\"nav-cart\"]",
+        "xpath": "//*[@data-testid=\"nav-cart\"]"
+      },
+      "targetTag": "button",
+      "targetText": "Cart 2",
+      "timestamp": "2026-06-19T02:05:54.263Z",
+      "title": "Factory Demo Shop",
+      "type": "click",
+      "url": "http://localhost:4173/#/products",
+      "value": null
+    },
+    {
+      "description": "Click Checkout button",
+      "elementSignature": "[data-testid=\"checkout-button\"]",
+      "groupName": "checkout flow",
+      "id": "act-007",
+      "primarySelector": "[data-testid=\"checkout-button\"]",
+      "screenName": "Cart Page",
+      "selectors": {
+        "css": "#checkout-button",
+        "id": "#checkout-button",
+        "roleText": "getByRole('button', { name: 'Checkout' })",
+        "testId": "[data-testid=\"checkout-button\"]",
+        "xpath": "//*[@data-testid=\"checkout-button\"]"
+      },
+      "targetTag": "button",
+      "targetText": "Checkout",
+      "timestamp": "2026-06-19T02:06:20.773Z",
+      "title": "Factory Demo Shop",
+      "type": "click",
+      "url": "http://localhost:4173/#/cart",
+      "value": null
+    },
+    {
+      "controlType": "text",
+      "description": "Input \"Luong Huy\" into Full name field",
+      "elementSignature": "[data-testid=\"full-name-input\"]",
+      "groupName": "checkout flow",
+      "id": "act-008",
+      "primarySelector": "[data-testid=\"full-name-input\"]",
+      "screenName": "Checkout Page",
+      "selectors": {
+        "css": "#full-name",
+        "id": "#full-name",
+        "roleText": "getByRole('textbox', { name: 'Full name' })",
+        "testId": "[data-testid=\"full-name-input\"]",
+        "xpath": "//*[@data-testid=\"full-name-input\"]"
+      },
+      "targetTag": "input",
+      "targetText": "Full name",
+      "timestamp": "2026-06-19T03:53:15.030Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/#/checkout",
+      "value": "Luong Huy"
+    },
+    {
+      "controlType": "text",
+      "description": "Input \"5005112\" into Postal code field",
+      "elementSignature": "[data-testid=\"postal-code-input\"]",
+      "groupName": "checkout flow",
+      "id": "act-009",
+      "primarySelector": "[data-testid=\"postal-code-input\"]",
+      "screenName": "Checkout Page",
+      "selectors": {
+        "css": "#postal-code",
+        "id": "#postal-code",
+        "roleText": "getByRole('textbox', { name: 'Postal code' })",
+        "testId": "[data-testid=\"postal-code-input\"]",
+        "xpath": "//*[@data-testid=\"postal-code-input\"]"
+      },
+      "targetTag": "input",
+      "targetText": "Postal code",
+      "timestamp": "2026-06-19T03:53:18.764Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/#/checkout",
+      "value": "5005112"
+    },
+    {
+      "controlType": "select",
+      "description": "Select Store pickup in Shipping method field",
+      "elementSignature": "[data-testid=\"shipping-method-select\"]",
+      "groupName": "checkout flow",
+      "id": "act-010",
+      "primarySelector": "[data-testid=\"shipping-method-select\"]",
+      "screenName": "Checkout Page",
+      "selectedText": "Store pickup",
+      "selectors": {
+        "css": "#shipping-method",
+        "id": "#shipping-method",
+        "roleText": "getByRole('combobox', { name: 'Shipping method' })",
+        "testId": "[data-testid=\"shipping-method-select\"]",
+        "xpath": "//*[@data-testid=\"shipping-method-select\"]"
+      },
+      "targetTag": "select",
+      "targetText": "Shipping method",
+      "timestamp": "2026-06-19T03:53:20.172Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/#/checkout",
+      "value": "pickup"
+    },
+    {
+      "checked": true,
+      "controlType": "radio",
+      "description": "Select Bank transfer option",
+      "elementSignature": "[data-testid=\"payment-bank-radio\"]",
+      "groupName": "checkout flow",
+      "id": "act-011",
+      "primarySelector": "[data-testid=\"payment-bank-radio\"]",
+      "screenName": "Checkout Page",
+      "selectors": {
+        "css": "#payment-bank",
+        "id": "#payment-bank",
+        "roleText": "getByRole('radio', { name: 'Bank transfer' })",
+        "testId": "[data-testid=\"payment-bank-radio\"]",
+        "xpath": "//*[@data-testid=\"payment-bank-radio\"]"
+      },
+      "targetTag": "input",
+      "targetText": "Bank transfer",
+      "timestamp": "2026-06-19T03:53:21.357Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/#/checkout",
+      "value": "bank"
+    },
+    {
+      "checked": true,
+      "controlType": "checkbox",
+      "description": "Check Gift wrap this order checkbox",
+      "elementSignature": "[data-testid=\"gift-wrap-checkbox\"]",
+      "groupName": "checkout flow",
+      "id": "act-012",
+      "primarySelector": "[data-testid=\"gift-wrap-checkbox\"]",
+      "screenName": "Checkout Page",
+      "selectors": {
+        "css": "#gift-wrap",
+        "id": "#gift-wrap",
+        "roleText": "getByRole('checkbox', { name: 'Gift wrap this order' })",
+        "testId": "[data-testid=\"gift-wrap-checkbox\"]",
+        "xpath": "//*[@data-testid=\"gift-wrap-checkbox\"]"
+      },
+      "targetTag": "input",
+      "targetText": "Gift wrap this order",
+      "timestamp": "2026-06-19T03:53:22.902Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/#/checkout",
+      "value": "yes"
+    },
+    {
+      "controlType": "textarea",
+      "description": "Input \"20/06/2026\" into Delivery note field",
+      "elementSignature": "[data-testid=\"delivery-note-textarea\"]",
+      "groupName": "checkout flow",
+      "id": "act-013",
+      "primarySelector": "[data-testid=\"delivery-note-textarea\"]",
+      "screenName": "Checkout Page",
+      "selectors": {
+        "css": "#delivery-note",
+        "id": "#delivery-note",
+        "roleText": "getByRole('textbox', { name: 'Delivery note' })",
+        "testId": "[data-testid=\"delivery-note-textarea\"]",
+        "xpath": "//*[@data-testid=\"delivery-note-textarea\"]"
+      },
+      "targetTag": "textarea",
+      "targetText": "Delivery note",
+      "timestamp": "2026-06-19T03:53:31.248Z",
+      "title": "Factory Demo Shop",
+      "type": "input",
+      "url": "http://localhost:4173/#/checkout",
+      "value": "20/06/2026"
+    },
+    {
+      "controlType": "button",
+      "description": "Click Place order button",
+      "elementSignature": "[data-testid=\"place-order-button\"]",
+      "groupName": "checkout flow",
+      "id": "act-014",
+      "primarySelector": "[data-testid=\"place-order-button\"]",
+      "screenName": "Checkout Page",
+      "selectors": {
+        "css": "#place-order-button",
+        "id": "#place-order-button",
+        "roleText": "getByRole('button', { name: 'Place order' })",
+        "testId": "[data-testid=\"place-order-button\"]",
+        "xpath": "//*[@data-testid=\"place-order-button\"]"
+      },
+      "targetTag": "button",
+      "targetText": "Place order",
+      "timestamp": "2026-06-19T03:53:31.333Z",
+      "title": "Factory Demo Shop",
+      "type": "click",
+      "url": "http://localhost:4173/#/checkout",
+      "value": null
+    }
+  ],
+  "groups": [
+    {
+      "key": "flow-1781843884102-e079d6305c56b",
+      "name": "login flow",
+      "screenName": "login flow",
+      "actionIds": [
+        "act-001",
+        "act-002",
+        "act-003"
+      ],
+      "repeat": {
+        "enabled": false,
+        "count": 1
+      }
+    },
+    {
+      "key": "flow-1781843884097-f40d15dbcdc4f8",
+      "name": "add cart flow",
+      "screenName": "add cart flow",
+      "actionIds": [
+        "act-004",
+        "act-005",
+        "act-006"
+      ],
+      "repeat": {
+        "enabled": false,
+        "count": 1
+      }
+    },
+    {
+      "key": "flow-1781843884085-eb651eb52234a8",
+      "name": "checkout flow",
+      "screenName": "checkout flow",
+      "actionIds": [
+        "act-007",
+        "act-008",
+        "act-009",
+        "act-010",
+        "act-011",
+        "act-012",
+        "act-013",
+        "act-014"
+      ],
+      "repeat": {
+        "enabled": false,
+        "count": 1
+      }
+    }
+  ]
+}

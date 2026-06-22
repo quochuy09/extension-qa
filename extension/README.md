@@ -53,10 +53,18 @@ The recorder/replay MVP supports:
 - Text input.
 - Textarea.
 - Dropdown/select.
+- Select2-like custom single select.
+- Custom multi-select checklist.
 - Radio buttons.
 - Checkboxes.
 
 The demo checkout page intentionally includes these control types.
+
+## Network Evidence
+
+While recording, the extension also captures same-origin `fetch` and `XMLHttpRequest` evidence caused by the flow when available.
+
+The exported action log may include `networkEvents` on the action that triggered the request. Sensitive values such as passwords, tokens, authorization headers, and cookies are redacted before export.
 
 ## CSV Data Loop
 

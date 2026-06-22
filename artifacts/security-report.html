@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Security Replay Report</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; margin: 32px; color: #18202a; }
+      h1 { margin-bottom: 4px; }
+      .muted { color: #637083; }
+      .summary { display: flex; gap: 16px; margin: 20px 0; }
+      .summary div { border: 1px solid #d7dee7; border-radius: 6px; padding: 10px 12px; }
+      .detail { border: 1px solid #d7dee7; border-radius: 6px; margin-top: 18px; padding: 14px; }
+      .detail h2 { font-size: 18px; margin: 0 0 8px; }
+      .detail h3 { font-size: 15px; margin: 14px 0 6px; }
+      .kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin: 8px 0; }
+      .kv div { border: 1px solid #e4e9ef; border-radius: 4px; padding: 8px; background: #fbfcfd; }
+      .snippet { max-height: 160px; overflow: auto; background: #f6f7f9; border: 1px solid #d7dee7; border-radius: 4px; padding: 8px; white-space: pre-wrap; }
+      table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+      th, td { border: 1px solid #d7dee7; padding: 8px; text-align: left; vertical-align: top; font-size: 14px; white-space: pre-wrap; }
+      th { background: #f6f7f9; }
+      .pass { color: #146c5f; font-weight: 700; }
+      .fail { color: #a33a2b; font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <h1>Security Replay Report</h1>
+    <p class="muted">Manual QC Suite</p>
+    <p class="muted">Source: D:\github_demo\logs\Manual-QC-Suite.json</p>
+    <p class="muted">Generated: 2026-06-22T09:22:23.291Z</p>
+    <div class="summary">
+      <div>Total: <strong>18</strong></div>
+      <div>Passed: <strong>18</strong></div>
+      <div>Failed: <strong>0</strong></div>
+    </div>
+    <table>
+      <thead><tr><th>Type</th><th>Name</th><th>Status</th><th>Category</th><th>Severity</th><th>OWASP/CWE</th><th>Payload</th><th>Findings</th><th>Fix</th></tr></thead>
+      <tbody><tr>
+      <td>business-flow-replay</td>
+      <td>login flow</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>business-flow-replay</td>
+      <td>add cart flow</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>business-flow-replay</td>
+      <td>checkout flow</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;standard_user&quot; into Username field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>html-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;standard_user&quot; into Username field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>attribute-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;standard_user&quot; into Username field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>single-quote-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;secret_sauce&quot; into Password field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>html-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;secret_sauce&quot; into Password field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>attribute-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;secret_sauce&quot; into Password field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>single-quote-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;Luong Huy&quot; into Full name field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>html-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;Luong Huy&quot; into Full name field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>attribute-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;Luong Huy&quot; into Full name field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>single-quote-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;5005112&quot; into Postal code field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>html-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;5005112&quot; into Postal code field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>attribute-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;5005112&quot; into Postal code field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>single-quote-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;20/06/2026&quot; into Delivery note field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>html-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;20/06/2026&quot; into Delivery note field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>attribute-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr><tr>
+      <td>xss-ui-payload</td>
+      <td>Input &quot;20/06/2026&quot; into Delivery note field</td>
+      <td class="pass">PASS</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>single-quote-breakout-marker</td>
+      <td>-</td>
+      <td>-</td>
+    </tr></tbody>
+    </table>
+    
+  </body>
+</html>

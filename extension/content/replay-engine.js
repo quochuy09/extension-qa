@@ -207,6 +207,16 @@
   }
 
   async function setControlValue(element, action, options) {
+    if (action.controlType === 'select2') {
+      await setSelect2Value(element, action, options);
+      return;
+    }
+
+    if (action.controlType === 'multiselect') {
+      await setMultiselectValue(element, action);
+      return;
+    }
+
     if (element instanceof HTMLSelectElement) {
       setSelectValue(element, action.value ?? '');
       return;
@@ -243,6 +253,39 @@
 
     element.dispatchEvent(new Event('input', { bubbles: true }));
     element.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  async function setSelect2Value(element, action, options) {
+    const button = element.querySelector('[data-role="select2-button"]');
+    const option = element.querySelector(`[data-option-value="${cssEscape(action.value ?? '')}"]`) || optionByText(element, action.selectedText);
+    if (!button || !option) {
+      throw new Error(`Select2 option not found: ${action.value || action.selectedText}`);
+    }
+
+    button.click();
+    await sleep(options.beforeActionMs);
+    option.click();
+  }
+
+  async function setMultiselectValue(element, action) {
+    const values = new Set(Array.isArray(action.value) ? action.value.map(String) : [String(action.value ?? '')]);
+    const button = element.querySelector('[data-role="multiselect-button"]');
+    const options = element.querySelector('[data-role="multiselect-options"]');
+    if (button && options?.hidden) {
+      button.click();
+    }
+
+    element.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      const shouldBeChecked = values.has(String(checkbox.value));
+      if (checkbox.checked !== shouldBeChecked) {
+        checkbox.click();
+      }
+    });
+  }
+
+  function optionByText(element, selectedText) {
+    const text = Array.isArray(selectedText) ? selectedText[0] : selectedText;
+    return Array.from(element.querySelectorAll('[data-option-value]')).find((option) => option.textContent.trim() === String(text || '').trim());
   }
 
   async function setTextValue(element, value, options) {
@@ -364,5 +407,9 @@
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+  }
+
+  function cssEscape(value) {
+    return window.CSS?.escape ? window.CSS.escape(value) : String(value).replace(/"/g, '\\"');
   }
 })();

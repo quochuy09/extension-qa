@@ -2,6 +2,7 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+  testIgnore: process.env.ACTION_LOG_RUNTIME === '1' ? [] : ['**/action-log-runtime.spec.js'],
   timeout: 30_000,
   expect: {
     timeout: 5_000

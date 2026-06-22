@@ -19,7 +19,12 @@ The goal is to keep the project clear, explainable, and customer-demo ready.
    - Wait for confirmation before editing code.
    - Small documentation updates requested directly by the user can be made immediately.
 
-3. Ask when uncertain.
+3. Do not push code unless explicitly requested.
+   - Local commits are allowed only when they help package an approved change.
+   - Do not run `git push` automatically after edits or commits.
+   - Push only when the user explicitly says to push code.
+
+4. Ask when uncertain.
    - If requirements are ambiguous, ask instead of guessing.
    - If multiple technical directions are possible, explain tradeoffs and ask for the preferred direction.
    - Do not silently choose an architecture that changes the demo story.
@@ -27,15 +32,19 @@ The goal is to keep the project clear, explainable, and customer-demo ready.
    - Include a recommended option and explain why it is recommended.
    - Avoid open-ended questions when the decision can be framed as 2-3 practical choices.
 
-4. Keep scope phase-based.
+5. Keep scope phase-based.
    - Finish one phase before moving to the next.
    - Stop and ask for confirmation after each phase.
    - Do not mix recorder, generator, self-healing, dashboard, and README work unless explicitly approved.
 
-5. Be transparent about what is real and what is a helper.
+6. Be transparent about what is real and what is a helper.
    - Chrome extension recorder is the primary recorder.
    - Playwright scripted recording is only a fixture/helper.
    - Do not present hard-coded sample flows as real user recording.
+
+7. Keep responses short, natural, and non-technical.
+   - Explain in simple language for a non-technical audience.
+   - Do not list files that will be changed or need to be changed.
 
 ## Architecture Rules
 

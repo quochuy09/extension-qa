@@ -1,5 +1,19 @@
 # Agent Interaction Contract
 
+## Standard Implementation Workflow
+
+For new implementation phases:
+
+```text
+Implementation Planner
+-> Plan Reviewer
+-> Domain Engineer
+-> Domain Reviewer
+-> Runtime Validator
+```
+
+Use `agents/workflow-plan-review-implement-test.md` as the detailed workflow contract.
+
 ## Current Lane A Contract
 
 ```mermaid
@@ -92,3 +106,48 @@ sequenceDiagram
 - validation result
 - patch diff
 - healing event log entry
+
+## Lane C Security Contract
+
+```mermaid
+sequenceDiagram
+  participant Planner as Security Planner
+  participant PlanReview as Security Plan Reviewer
+  participant SecEng as Security Implementation Engineer
+  participant SecReview as Security Reviewer
+  participant Runtime as Runtime Validator
+
+  Planner->>PlanReview: Lane C plan
+  PlanReview-->>Planner: approval/findings
+  Planner->>SecEng: approved plan
+  SecEng->>SecReview: security rules/findings/report changes
+  SecReview-->>SecEng: approval/findings
+  SecEng->>Runtime: verification commands
+  Runtime-->>Planner: pass/fail classification
+```
+
+### Security Planner To Security Implementation Engineer
+
+- approved phase
+- target checks/rules
+- affected files
+- acceptance criteria
+- verification commands
+
+### Security Implementation Engineer To Security Reviewer
+
+- changed rules
+- finding format
+- OWASP/CWE mapping
+- report output examples
+
+### Security Reviewer To Runtime Validator
+
+- approved verification set
+- expected pass/fail behavior
+
+### Runtime Validator To Security Planner
+
+- command results
+- failing rule or test name
+- artifacts such as `artifacts/security-report.html`
